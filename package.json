@@ -1,0 +1,31 @@
+{
+  "name": "url_shortener_microservice_fcc",
+  "version": "1.0.0",
+  "description": "fcc back end cert url shortener microservice",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evedes/URL_Shortener_Microservice_FCC.git"
+  },
+  "keywords": [
+    "fcc",
+    "back",
+    "end",
+    "cert",
+    "utl",
+    "shortener",
+    "microservice"
+  ],
+  "author": "Eduardo Vedes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evedes/URL_Shortener_Microservice_FCC/issues"
+  },
+  "homepage": "https://github.com/evedes/URL_Shortener_Microservice_FCC#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
