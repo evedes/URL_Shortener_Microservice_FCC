@@ -40,13 +40,8 @@ app.get('/new/:url2Short(*)', (req,res)=>{
     let test = regEx1.test(myurl)
         
         if (test===true) {
-            
-            if (validUrl.isUri(myurl)) {
-                console.log('Lookas like an URI')
-            } else {
-                res.json("Not an URI")
-            }
-                      
+           
+                             
             let shortUrl = Math.floor(Math.random()*10000).toString()
             let data = new urlToShorten({Url: myurl, ShortUrl: shortUrl})
     
