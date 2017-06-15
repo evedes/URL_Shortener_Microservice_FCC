@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const validUrl = require('valid-url')
+
 
 //Database Requirements and Connection
 const mongoose = require('mongoose')
@@ -35,15 +35,15 @@ app.use('/', express.static(path.join(__dirname,'public')))
 //Get data from Url
 app.get('/new/:url2Short(*)', (req,res)=>{
     
-    let myurl = req.params.url2Short
+    let url = req.params.url2Short
     let regEx1 = /^https?:\/\//
-    let test = regEx1.test(myurl)
+    let test = regEx1.test(url)
         
         if (test===true) {
            
                              
             let shortUrl = Math.floor(Math.random()*10000).toString()
-            let data = new urlToShorten({Url: myurl, ShortUrl: shortUrl})
+            let data = new urlToShorten({Url: url, ShortUrl: shortUrl})
     
             data.save((err,data)=>{
                 if(err) return console.error(err)
@@ -57,7 +57,7 @@ app.get('/new/:url2Short(*)', (req,res)=>{
    
 })
 
-app.get('/:shortenedUrl', (req,res)=>{
+app.get('/s/:shortenedUrl', (req,res)=>{
     var shortenedUrl = req.params.shortenedUrl;
     
     urlToShorten.findOne({ShortUrl:shortenedUrl}, (err,data)=>{
