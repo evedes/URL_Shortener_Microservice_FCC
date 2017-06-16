@@ -2,16 +2,19 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-
+const dotenv = require('dotenv')
+dotenv.load()
 
 //Database Requirements and Connection
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://user:pass@ds127892.mlab.com:27892/urlshortener_fcc')
+mongoose.connect('mongodb://' + process.env.DB_USER +':' + process.env.DB_PASS + process.env.DB_HOST)
 var db = mongoose.connection
 db.on('error',console.error.bind(console,'connection error:'))
 db.once('open', ()=>{
     console.log('\nHey guys! We\'re connected!\n')
 })
+
+console.log(process.env.EVEDES)
 
 // Schema Definitions
 var urlSchema = mongoose.Schema({
@@ -31,6 +34,10 @@ const port = process.env.PORT || 8080
 //Use static path for public
 app.use('/', express.static(path.join(__dirname,'public')))
 
+
+app.get('/s/', (req,res)=>{
+    res.redirect(301,'https://dust-fountain.glitch.me/')
+})
 
 //Get data from Url
 app.get('/new/:url2Short(*)', (req,res)=>{
