@@ -26,7 +26,7 @@ app.get('/new/:url2Short(*)', (req,res)=>{
         
         if (test===true) {
                                        
-            shortUrl = Math.floor(Math.random()*10000).toString()
+            let shortUrl = Math.floor(Math.random()*10000).toString()
             let data = new urlToShorten({Url: url, ShortUrl: shortUrl})
               
             data.save((err,data)=>{

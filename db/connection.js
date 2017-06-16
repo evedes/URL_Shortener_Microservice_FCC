@@ -18,3 +18,4 @@ var urlSchema = mongoose.Schema({
 var urlToShorten = mongoose.model('urlToShorten', urlSchema,'urlCollection')
 
 module.exports = urlToShorten
+
