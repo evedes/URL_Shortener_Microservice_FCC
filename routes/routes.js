@@ -20,32 +20,48 @@ router.get('/new/:url2Short(*)', (req,res)=>{
     let test = regEx1.test(url)
         
         if (test===true) {
-                                       
-            let shortUrl = Math.floor(Math.random()*10000).toString()
-            let data = new urlToShorten({Url: url, ShortUrl: shortUrl})
+
+            urlToShorten.findOne({Url: url}, (err,count)=>{
+                if(err) return res.send('Error reading database')
+                if(count===null) {
+
+                    let shortUrl = Math.floor(Math.random()*10000).toString()
+                    let data = new urlToShorten({Url: url, ShortUrl: shortUrl})
               
-            data.save((err,data)=>{
-                if(err) return console.error(err)
-                })
+                    data.save((err,data)=>{
+                        if(err) return console.error(err)
+                    })
     
-            res.json(data)
+                    res.json({Url: data.Url, ShortUrl: data.ShortUrl})
+                }
+                else {
+                    
+                    res.json({Message: 'Url already exists!', Url: count.Url, ShortUrl: count.ShortUrl})
+                }
+
+            })                                
+            
         }
         else {
-            res.json('Wrong url format, make sure you have a valid protocol and a real site.')
+            res.json({Message: 'Wrong url format, make sure you have a valid protocol and a real site.'})
         }
    
 })
 
 // USE SHORTENED URL
 router.get('/s/:shortenedUrl', (req,res)=>{
+    
     var shortenedUrl = req.params.shortenedUrl;
     
-    urlToShorten.findOne({ShortUrl:shortenedUrl}, (err,data)=>{
-
+    urlToShorten.findOne({ShortUrl:shortenedUrl}, (err,count)=>{
         if(err) return res.send('Error reading database')
-
-        res.redirect(301,data.Url);
-
+        
+        if(count===null) {
+            res.json({Message: 'Short URL doesn\'t exists!'})
+        
+        } else { 
+            res.redirect(301,count.Url)
+        } 
     })
 })
 
