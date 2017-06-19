@@ -9,6 +9,15 @@ const port = process.env.PORT || 8080
 //Database Requirements and Connection
 const mongoose = require('mongoose')
 var urlToShorten = require('./db/connection.js')
+
+mongoose.connect('mongodb://' + process.env.DB_USER +':' + process.env.DB_PASS + process.env.DB_HOST)
+var db = mongoose.connection
+db.on('error',console.error.bind(console,'connection error:'))
+db.once('open', ()=>{
+    console.log('\nHey guys! We\'re connected!\n')
+})
+
+
 //ATTRIB STATIC PATH TO PUBLIC FOLDER
 app.use('/', express.static(path.join(__dirname,'public')))
 
