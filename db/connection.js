@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 
 // Schema Definitions
 var urlSchema = mongoose.Schema({
-    Url: String,
-    ShortUrl: String
+    Url: String 
 })
 
 //Define model
